@@ -38,6 +38,8 @@ public class SimpleChatBot {
         countNumbers();
         test();
         end();
+
+        input.close();
     }
 
     /**

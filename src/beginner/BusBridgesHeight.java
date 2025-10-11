@@ -6,6 +6,7 @@ public class BusBridgesHeight {
 
     static void main() {
         CompareBusAndBridgesHeight();
+        input.close();
     }
 
     /**
