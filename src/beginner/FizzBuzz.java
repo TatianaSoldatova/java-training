@@ -5,8 +5,25 @@ public class FizzBuzz {
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        fizzBuzz();
+        fizzBuzzCount();
+        fizzBuzzNumCheck();
+
         input.close();
+    }
+
+    /**
+     * Validates integer input
+     */
+    public static int readInt(Scanner input, String message) {
+        while (true) {
+            System.out.print(message);
+            if(input.hasNextInt()) {
+                return input.nextInt();
+            }else{
+                System.out.println("Invalid input! Please enter an integer.");
+                input.next(); // discard invalid input
+            }
+        }
     }
 
     /**
@@ -16,12 +33,9 @@ public class FizzBuzz {
      * and "FizzBuzz" if it's divisible by both 3 and 5;
      * otherwise, you print the number itself
      */
-    public static void fizzBuzz() {
-        System.out.println("Enter the start value: ");
-        int begin = input.nextInt();
-
-        System.out.println("Enter the end value: ");
-        int end = input.nextInt();
+    public static void fizzBuzzCount() {
+        int begin = readInt(input, "Enter the start value: ");
+        int end = readInt(input,  "Enter the end value: ");
 
         for(int i = begin; i <= end; i++){
             if(i % 3 == 0 && i % 5 == 0){
@@ -34,5 +48,52 @@ public class FizzBuzz {
                 System.out.println(i);
             }
         }
+    }
+
+    /**
+     * Checks the number divisibility
+     * If the number is divisible by 3, prints 'Fizz'
+     * If it's divisible by 5, prints 'Buzz'
+     * If it's divisible by both 3 and 5, prints 'FizzBuzz'
+     */
+    public static void fizzBuzzNumCheck() {
+        int num = readInt(input, "\nEnter some integer: ");
+
+        if(isDivByThreeAndFive(num)){
+            System.out.println("FizzBuzz");
+        } else if(isDivByThree(num)){
+            System.out.println("Fizz");
+        } else if(isDivByFive(num)){
+            System.out.println("Buzz");
+        } else{
+            System.out.println("None");
+        }
+    }
+
+    /**
+     * Checks if the input number is divisible by 3
+     * @param number (input number)
+     * @return true or false
+     */
+    public static boolean isDivByThree(int number){
+        return (number % 3) == 0;
+    }
+
+    /**
+     * Checks if the input number is divisible by 5
+     * @param number (input number)
+     * @return true or false
+     */
+    public static boolean isDivByFive(int number){
+        return (number % 5) == 0;
+    }
+
+    /**
+     * Checks if the input number is divisible by 3 and 5
+     * @param number (input number)
+     * @return true or false
+     */
+    public static boolean isDivByThreeAndFive(int number){
+        return ((number % 3) == 0) && ((number % 5) == 0);
     }
 }
