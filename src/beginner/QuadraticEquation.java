@@ -4,14 +4,20 @@ import  java.util.Scanner;
 public class QuadraticEquation {
     static Scanner input = new Scanner(System.in);
 
+    //----------
+    // CONSTANTS
+    //----------
+    static final String MSG_ERR_INPUT = "Invalid input! Please enter an integer.";
+    static final String MSG_COEFFICIENT_ZERO = "Coefficient a cannot be zero for a quadratic equation.";
+
     public static void main() {
-        int a = readInt(input, "Enter a (non-zero): ");
+        int a = UserInputUtils.readInt(input, "Enter a (non-zero): ", MSG_ERR_INPUT);
         while(a == 0){
-            System.out.println("Coefficient a cannot be zero for a quadratic equation. ");
-            a = readInt(input, "Enter a (non-zero): ");
+            System.out.println(MSG_COEFFICIENT_ZERO);
+            a = UserInputUtils.readInt(input, "Enter a (non-zero): ", MSG_ERR_INPUT);
         }
-        int b = readInt(input, "Enter b: ");
-        int c = readInt(input, "Enter c: ");
+        int b = UserInputUtils.readInt(input, "Enter b: ", MSG_ERR_INPUT);
+        int c = UserInputUtils.readInt(input, "Enter c: ", MSG_ERR_INPUT);
 
         double discriminant = calculateDiscriminant(a, b, c);
 
@@ -21,21 +27,6 @@ public class QuadraticEquation {
             calculateRoots(a, b, c, discriminant);
         }
         input.close();
-    }
-
-    /**
-     * Validates integer input
-     */
-    public static int readInt(Scanner input, String message) {
-        while (true) {
-            System.out.print(message);
-            if(input.hasNextInt()) {
-                return input.nextInt();
-            }else{
-                System.out.println("Invalid input! Please enter an integer.");
-                input.next(); // discard invalid input
-            }
-        }
     }
 
     /**

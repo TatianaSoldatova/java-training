@@ -12,21 +12,6 @@ public class FizzBuzz {
     }
 
     /**
-     * Validates integer input
-     */
-    public static int readInt(Scanner input, String message) {
-        while (true) {
-            System.out.print(message);
-            if(input.hasNextInt()) {
-                return input.nextInt();
-            }else{
-                System.out.println("Invalid input! Please enter an integer.");
-                input.next(); // discard invalid input
-            }
-        }
-    }
-
-    /**
      * Prints numbers from start value to end value.
      * For each number, you print "Fizz" if it's divisible by 3,
      * "Buzz" if it's divisible by 5,
@@ -34,8 +19,10 @@ public class FizzBuzz {
      * otherwise, you print the number itself
      */
     public static void fizzBuzzCount() {
-        int begin = readInt(input, "Enter the start value: ");
-        int end = readInt(input,  "Enter the end value: ");
+        final String MSG_ERR_INPUT = "Invalid input! Please enter an integer.";
+
+        int begin = UserInputUtils.readInt(input, "Enter the start value: ", MSG_ERR_INPUT);
+        int end = UserInputUtils.readInt(input,  "Enter the end value: ", MSG_ERR_INPUT);
 
         for(int i = begin; i <= end; i++){
             if(i % 3 == 0 && i % 5 == 0){
@@ -57,7 +44,8 @@ public class FizzBuzz {
      * If it's divisible by both 3 and 5, prints 'FizzBuzz'
      */
     public static void fizzBuzzNumCheck() {
-        int num = readInt(input, "\nEnter some integer: ");
+        final String MSG_ERR_INPUT = "Invalid input! Please enter an integer.";
+        int num = UserInputUtils.readInt(input, "\nEnter some integer: ", MSG_ERR_INPUT);
 
         if(isDivByThreeAndFive(num)){
             System.out.println("FizzBuzz");

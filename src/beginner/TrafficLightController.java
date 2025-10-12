@@ -7,12 +7,13 @@ public class TrafficLightController {
     //----------
     // CONSTANTS
     //----------
-    final static String MSG_INPUT = """
-                                     \nEnter the state of the current traffic light
-                                     0 for red, 1 for yellow and 2 for green:\s""";
+    final static String MSG_INPUT     = """
+                                        \nEnter the state of the current traffic light
+                                        0 for red, 1 for yellow and 2 for green:\s""";
+    final static String MSG_ERR_INPUT = "Invalid input! Please enter an integer.";
 
     public static void main() {
-        int currentState = readInt(input, MSG_INPUT);
+        int currentState = UserInputUtils.readInt(input, MSG_INPUT, MSG_ERR_INPUT);
         input.close();
 
         String nextState = getNextState(currentState);
@@ -20,22 +21,6 @@ public class TrafficLightController {
 
         System.out.println(nextState);
         System.out.println(action);
-    }
-
-
-    /**
-     * Validates integer input
-     */
-    public static int readInt(Scanner input, String message) {
-        while (true) {
-            System.out.print(message);
-            if(input.hasNextInt()) {
-                return input.nextInt();
-            }else{
-                System.out.println("Invalid input! Please enter an integer.");
-                input.next(); // discard invalid input
-            }
-        }
     }
 
     /**
