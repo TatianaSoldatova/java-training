@@ -15,6 +15,8 @@ public class SwitchPractice {
 
     public static void main(String[] args) {
         calculateFloorArea();
+        harryPotterSwitchExercise();
+
         input.close();
     }
 
@@ -24,10 +26,10 @@ public class SwitchPractice {
      * Prints the calculated area to the console.
      */
     public static void calculateFloorArea(){
-        String shape = " ";
+        String shape;
 
         // Validate user's input
-        shape = validateShapeInput(shape);
+        shape = validateShapeInput();
 
         // Handle area calculations depending on the floor shape
         switch (shape) {
@@ -46,13 +48,12 @@ public class SwitchPractice {
     /**
      * Prompts the user to enter the shape of a room and validates the input.
      * Repeats the input prompt until a valid shape is entered.
-     * @param shape (user's input)
      * @return shape
      */
-    public static String validateShapeInput(String shape){
+    public static String validateShapeInput(){
         final String MSG_SHAPE = "\nEnter the room shape (triangle, rectangle or circle): ";
         final String MSG_ERR_SHAPE_INPUT = "Error! Invalid input! Try again...";
-
+        String shape;
         do{
             System.out.print(MSG_SHAPE);
             shape = input.next().toLowerCase();
@@ -73,9 +74,7 @@ public class SwitchPractice {
     public static void handleTriangle(Scanner input){
         final String MSG_ERR = "Invalid triangle sides. Try again...";
 
-        double a = 0;
-        double b = 0;
-        double c = 0;
+        double a, b, c;
 
         //Validate triangle sides
         do{
@@ -132,7 +131,7 @@ public class SwitchPractice {
 
     /**
      * Calculates the area of a triangle with sides a, b, c:
-     * The formula:
+     * The Heron formula:
      * 1. compute the semiperimeter: s = (a+b+c)/2
      * 2. compute the area : area = sqrt(s * (s-a) * (s-b) * (s-c))
      * @return area
@@ -144,12 +143,22 @@ public class SwitchPractice {
 
     /**
      * Calculates the area of a rectangle with sides a and b:
-     * The formula: area = a * b
+     * The formula: area = side a * side b
      * @return area
      */
     public static double rectangleArea(double a, double b) {
-        return a * b;
+        return parallelogramArea(a, b);
     }
+
+    /**
+     * Calculates the area of a parallelogram:
+     * The formula: area = height h * base b
+     * @return area
+     */
+    public static double parallelogramArea(double h, double b) {
+        return h * b;
+    }
+
 
     /**
      * Calculates the area of a circle:
@@ -158,5 +167,42 @@ public class SwitchPractice {
      */
     public static double circleArea(double r) {
         return Math.PI * (r * r);
+    }
+
+    //----------------------------------------------------------------
+    /**
+     * switch selection exercise with input validation loop
+     */
+    public static void harryPotterSwitchExercise(){
+        final String MSG_HOUSE_INPUT = "\nEnter one Hogwarts house: ";
+
+        System.out.print(MSG_HOUSE_INPUT);
+        String house = input.next().toLowerCase();
+        boolean isValid = false;
+
+        while(!isValid){
+            switch (house) {
+                case "gryffindor":
+                    System.out.println("bravery");
+                    isValid = true;
+                    break;
+                case "hufflepuff":
+                    System.out.println("loyalty");
+                    isValid = true;
+                    break;
+                case "slytherin":
+                    System.out.println("cunning");
+                    isValid = true;
+                    break;
+                case "ravenclaw":
+                    System.out.println("intellect");
+                    isValid = true;
+                    break;
+                default:
+                    System.out.println("not a valid house");
+                    System.out.print(MSG_HOUSE_INPUT);
+                    house = input.next().toLowerCase();
+            }
+        }
     }
 }
