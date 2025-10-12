@@ -66,7 +66,6 @@ public class SwitchPractice {
         return shape;
     }
 
-
     /**
      * Takes user's input and displays triangle floor area
      * @param input (user's input for 3 sides of a triangle)
@@ -158,7 +157,6 @@ public class SwitchPractice {
     public static double parallelogramArea(double h, double b) {
         return h * b;
     }
-
 
     /**
      * Calculates the area of a circle:
