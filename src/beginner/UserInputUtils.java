@@ -36,6 +36,22 @@ public class UserInputUtils {
     }
 
     /**
+     * Validates double input with prompt
+     * @return double input
+     */
+    public static double readDouble(Scanner input, String messagePrompt, String messageError) {
+        while (true) {
+            System.out.print(messagePrompt);
+            if(input.hasNextDouble()) {
+                return input.nextDouble();
+            }else{
+                System.out.println(messageError);
+                input.next(); // discard invalid input
+            }
+        }
+    }
+
+    /**
      * Takes user's char input and ensures to clear the input buffer
      * @return character input
      */
