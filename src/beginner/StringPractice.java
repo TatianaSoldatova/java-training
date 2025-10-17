@@ -56,7 +56,16 @@ public class StringPractice {
 
         // Compress a sequence
         String compress = compressionAlgorithm();
-        System.out.println(compress);
+        System.out.println("Compressed sentence: " + compress);
+        System.out.println();
+
+        // Double characters in a String
+        doubleCharactersInAString();
+        System.out.println();
+
+        // Reverse string
+        reverseString();
+        reverseStringWithStringBuilder();
         System.out.println();
 
         input.close();
@@ -146,5 +155,70 @@ public class StringPractice {
             }
         }
         return encodedSequence;
+    }
+
+    /**
+     * Reads a string from user input and prints a new string where each character is doubled.
+     */
+    public static void doubleCharactersInAString(){
+        final String MSG_INPUT = "Enter a string: ";
+
+        System.out.print(MSG_INPUT);
+        String sequence = input.nextLine();
+        String doubleSequence = "";
+
+        for(int i = 0; i < sequence.length(); i++){
+            for(int j = 0; j < 2; j++){
+                doubleSequence = doubleSequence.concat(Character.toString(sequence.charAt(i)));
+            }
+        }
+
+        for(int i = 0; i < doubleSequence.length(); i++){
+            System.out.print(doubleSequence.charAt(i));
+        }
+    }
+
+    /**
+     * Reads a string from user input, reverses it manually, prints the reversed string,
+     * and checks whether it is a palindrome.
+     */
+    public static void reverseString(){
+        final String MSG_INPUT = "\nEnter a string: ";
+        System.out.print(MSG_INPUT);
+        String sequence = input.nextLine();
+        String reversed = "";
+        for(int i = sequence.length() - 1; i >= 0; i--){
+            reversed += sequence.charAt(i);
+        }
+
+        System.out.print("Reversed string: ");
+        for(int i = 0; i < reversed.length(); i++){
+            System.out.print(reversed.charAt(i));
+        }
+        System.out.println();
+
+        if (sequence.equals(reversed)) {
+            System.out.println(sequence + " is a palindrome");
+        } else {
+            System.out.println(sequence + " is not a palindrome");
+        }
+    }
+
+    /**
+     * Reads a string from user input, reverses it using StringBuilder, and checks
+     * whether it is a palindrome.
+     */
+    public static void reverseStringWithStringBuilder() {
+        final String MSG_INPUT = "\nEnter a string: ";
+
+        System.out.print(MSG_INPUT);
+        String sequence = input.nextLine();
+
+        String reversed = new StringBuilder(sequence).reverse().toString();
+        if (reversed.equals(sequence)) {
+            System.out.println(sequence + " is a palindrome");
+        } else {
+            System.out.println(sequence + " is not a palindrome");
+        }
     }
 }
