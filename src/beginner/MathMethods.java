@@ -1,12 +1,17 @@
 package beginner;
 import java.util.Scanner;
 
+/**
+ * Various methods using mathematical formulas and/or Math library
+ */
 public class MathMethods {
     static Scanner input = new Scanner(System.in);
 
     public static void main() {
-        thirdDegreePolynomial();
-        formulas();
+        //thirdDegreePolynomial();
+        //formulas();
+        //tables();
+        greatestCommonDivisor();
         input.close();
     }
 
@@ -43,7 +48,7 @@ public class MathMethods {
    }
 
     /**
-     * Determines if X is defined for each of the formulas and calculates the result
+     * Determines if x is defined for each of the formulas and calculates the result
      * Logarithm is defined for positive real numbers > 0
      * Square root is defined for real numbers >= 0
      * 1/x is defined for real numbers != 0
@@ -93,5 +98,60 @@ public class MathMethods {
            System.out.printf(MSG_FORMULA, 4, result);
        }
        System.out.println();
+   }
+
+    /**
+     * Prints multiplication tables from 2 to 10
+     */
+   public static void tables(){
+       final String MSG_TITLE = "\n       Multiplication tables\n";
+
+       System.out.println(MSG_TITLE);
+       for(int i = 2; i <= 10; i++){
+           System.out.println("Table de " + i + ": ");
+           for(int j = 1; j <= 10; j++){
+               System.out.println(j + " * " + i + " = " + j * i);
+           }
+           System.out.println();
+       }
+   }
+
+    /**
+     * Calculates and displays the greatest common divisor of
+     * two positive integers entered on the keyboard
+     */
+   public static void greatestCommonDivisor(){
+        final String MSG_NUMBER = "Enter a positive number: ";
+        final String MSG_RESULT = "The greatest common divisor of %d and %d is ";
+        final String MSG_ERR         = "Invalid input!";
+
+        int gcd = 0;
+        int temp;
+
+        boolean condition = true;
+
+        int num1 = UserInputUtils.readInt(input, MSG_NUMBER, MSG_ERR);
+        int num2 = UserInputUtils.readInt(input, MSG_NUMBER, MSG_ERR);
+
+       System.out.printf(MSG_RESULT, num1, num2);
+        while(condition){
+            if(num1 == num2){
+                gcd = num1;
+                condition = false;
+            }else if(num1 > num2){
+                temp = num1 - num2;
+                if(temp < num2){
+                    num1 = num2;
+                    num2 = temp;
+                }else{
+                    num1 = temp;
+                }
+            }else{
+                temp = num1;
+                num1 = num2;
+                num2 = temp;
+            }
+        }
+        System.out.println(gcd);
    }
 }
