@@ -21,7 +21,7 @@ public class MapsPractice {
         String sequence = " ";
 
         try{
-            sequence = Files.readString(Path.of("src/intermediate/text_files/CodeSequence.txt"));
+            sequence = Files.readString(Path.of("src/intermediate/i_text_files/CodeSequence.txt"));
             //System.out.println("File content: " + sequence);
         } catch (IOException e){
             e.printStackTrace();
