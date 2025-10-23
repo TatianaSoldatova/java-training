@@ -1,5 +1,9 @@
 package beginner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class VariousMethods {
     static Scanner input = new Scanner(System.in);
@@ -8,6 +12,8 @@ public class VariousMethods {
         calculateBirthYear();
         calculateBMI();
         fondue();
+
+        sumOfDegrees();
 
         input.close();
     }
@@ -81,5 +87,49 @@ public class VariousMethods {
         System.out.println("- " + baseBread + " gr of bread");
         System.out.println("- " + "pepper, as much as you want");
         System.out.println();
+    }
+
+    /**
+     * Reads a sequence of integer degree values from a text file and calculates the resulting
+     * final turn in degrees after applying all rotations sequentially.
+     * Each integer in the file represents a rotation angle in degrees, separated by commas.
+     * Negative values indicate counterclockwise rotations, and positive values indicate clockwise rotations.
+     * The function normalizes each rotation so that the cumulative sum always remains within 0–359 degrees.
+     */
+    public static void sumOfDegrees(){
+        String sequence = " ";
+        int sum = 0;
+
+        try{
+            sequence = Files.readString(Path.of("src/beginner/b_text_files/degrees.txt"));
+            //System.out.println("File content: " + sequence);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        sequence = sequence.trim();
+
+        String[] parts = sequence.split(",");
+        int[] degrees = new int[parts.length];
+
+        for (int i = 0; i < parts.length; i++) {
+            degrees[i] = Integer.parseInt(parts[i]);
+        }
+
+        //Print the array
+        //System.out.println(Arrays.toString(degrees));
+
+        for(int i = 0; i < degrees.length; i++){
+            if(degrees[i] < 0){
+                sum += (360 + degrees[i]);
+            }else{
+                sum += degrees[i];
+            }
+
+            if(sum >= 360){
+                sum -= 360;
+            }
+            //System.out.println(sum);
+        }
+        System.out.println("The final turn is equal to " + sum + " degrees");
     }
 }
