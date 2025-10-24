@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class MapsPractice {
 
-    public static void main() {
+    static void main() {
         countCharactersInFile();
     }
 
