@@ -1,4 +1,6 @@
 package beginner;
+import utils.UserInputUtils;
+
 import java.util.Scanner;
 
 public class TrafficLightController {
