@@ -1,8 +1,14 @@
 package beginner;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Scanner;
+
 public class LoopPractice {
     static void main() {
-        heightAfterNRebounds();
+        //heightAfterNRebounds();
+        decodeTheMessage();
     }
 
     /**
@@ -35,4 +41,93 @@ public class LoopPractice {
         }
         System.out.printf("\nHeight of the ball after " + NBR_REBOUNDS + " rebounds: " + heightAtStartOfFall);
     }
+
+    /**
+     * Reads a sequence of movement instructions from a text file and decodes it into a hidden message
+     * based on a 4×4 virtual keyboard layout.
+     *  The virtual keyboard layout is as follows:
+     *    A B C D
+     *    E F G H
+     *    I J K L
+     *    M N O P
+     *  Each line of the input file represents a separate letter in the message.
+     *  A line contains a list of comma-separated directions (e.g., UP, LEFT, DOWN, RIGHT) that
+     *  describe how to move from the starting position (top-left key 'A') across the keyboard.
+     *  The algorithm processes each sequence of directions to determine the final key position.
+     *  That key’s character is then appended to the decoded message.
+     *  For example, given a line:
+     *  RIGHT, DOWN, DOWN
+     *  The decoder moves from 'A' → 'B' → 'F' → 'J', so 'J' is added to the message.
+     */
+    public static void decodeTheMessage() {
+        //Directions
+        String sequence = " ";
+        try{
+            sequence = Files.readString(Path.of("src/beginner/b_text_files/movements.txt"));
+        } catch (IOException e){
+            e.printStackTrace();
+            return;
+        }
+        //sequence = sequence.trim();
+        String[] parts = sequence.split("\n");
+
+        final String KEYBOARD = "ABCDEFGHIJKLMNOP";
+        System.out.println("parts length: " + parts.length);
+        System.out.println("keyboard length:" + KEYBOARD.length());
+
+        String message = "";
+        char currentChar = ' ';
+        int currentIndex;
+
+        // UP, DOWN, LEFT, RIGHT
+        for (int i = 0; i < parts.length; i++) {
+            String[] directions = parts[i].split(",");
+            currentIndex = 0;
+            for (int j = 0; j < directions.length; j++) { // UP DOWN LEFT RIGHT
+                directions[j] = directions[j].trim();
+                switch (directions[j]) {
+                    case "UP":
+                        if(currentIndex <= 3) {
+                            currentChar = KEYBOARD.charAt(currentIndex);
+                        }else{
+                            currentChar = KEYBOARD.charAt(currentIndex - (KEYBOARD.length()/4));
+                            currentIndex = currentIndex - (KEYBOARD.length()/4);
+                        }
+                        break;
+                    case "DOWN":
+                        if(currentIndex >= 12) {
+                            currentChar = KEYBOARD.charAt(currentIndex);
+                        }else{
+                            currentChar = KEYBOARD.charAt(currentIndex + (KEYBOARD.length()/4));
+                            currentIndex = currentIndex + (KEYBOARD.length()/4);
+                        }
+                        break;
+                    case "LEFT":
+                        if(currentIndex % 4 == 0) {
+                            currentChar = KEYBOARD.charAt(currentIndex);
+                        }else{
+                            currentChar = KEYBOARD.charAt(currentIndex - 1);
+                            currentIndex = currentIndex - 1;
+                        }
+                        break;
+                    case "RIGHT":
+                        int index = ((KEYBOARD.length()/4) * (currentIndex / 4 + 1) - 1);
+                        if(currentIndex == 3 || currentIndex == index) {
+                            currentChar = KEYBOARD.charAt(currentIndex);
+                        }else{
+                            currentChar = KEYBOARD.charAt(currentIndex + 1);
+                            currentIndex = currentIndex + 1;
+                        }
+                        break;
+                }
+            }
+            message += currentChar;
+        }
+
+        for(int i = 0; i < message.length(); i++){
+            System.out.print(message.charAt(i));
+        }
+        System.out.println("\nlength: " + message.length());
+    }
 }
+// answer: LECDJGAPPIFCCIOOBOEFANLFFAFLMBOKLFJPMIHEKJEIOLLMPFOCLBIBLLOCEGOA
