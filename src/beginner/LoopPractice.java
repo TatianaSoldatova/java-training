@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class LoopPractice {
     static void main() {
-        //heightAfterNRebounds();
+        heightAfterNRebounds();
         decodeTheMessage();
     }
 
@@ -40,6 +40,7 @@ public class LoopPractice {
             System.out.println("rebond " + (i+1) + " : " + heightAtStartOfFall);
         }
         System.out.printf("\nHeight of the ball after " + NBR_REBOUNDS + " rebounds: " + heightAtStartOfFall);
+        System.out.println();
     }
 
     /**
@@ -72,7 +73,7 @@ public class LoopPractice {
         String[] parts = sequence.split("\n");
 
         final String KEYBOARD = "ABCDEFGHIJKLMNOP";
-        System.out.println("parts length: " + parts.length);
+        System.out.println("\nparts length: " + parts.length);
         System.out.println("keyboard length:" + KEYBOARD.length());
 
         String message = "";
@@ -128,6 +129,8 @@ public class LoopPractice {
             System.out.print(message.charAt(i));
         }
         System.out.println("\nlength: " + message.length());
+        System.out.println();
+        // answer: LECDJGAPPIFCCIOOBOEFANLFFAFLMBOKLFJPMIHEKJEIOLLMPFOCLBIBLLOCEGOA
     }
 }
-// answer: LECDJGAPPIFCCIOOBOEFANLFFAFLMBOKLFJPMIHEKJEIOLLMPFOCLBIBLLOCEGOA
+
