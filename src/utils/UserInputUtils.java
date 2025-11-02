@@ -14,7 +14,31 @@ public class UserInputUtils {
                 return input.nextInt();
             }else{
                 System.out.println(messageError);
-                input.next(); // discard invalid input
+                input.nextLine(); // discard invalid input
+            }
+        }
+    }
+
+    /**
+     * Validates positive integer input with prompt
+     * @return integer input greater than 0
+     */
+    public static int readPositiveInt(Scanner input, String messagePrompt, String messageError) {
+        while (true) {
+            System.out.print(messagePrompt);
+
+            if(input.hasNextInt()) {
+                int temp = input.nextInt();
+                input.nextLine(); // discard new line
+
+                if(temp > 0){
+                    return temp;
+                }else{
+                    System.out.println(messageError);
+                }
+            }else{
+                System.out.println(messageError);
+                input.nextLine(); // discard invalid input
             }
         }
     }
