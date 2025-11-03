@@ -8,6 +8,16 @@ public class ArrayPractice {
     static Scanner input = new Scanner(System.in);
 
     static void main() {
+        rightRotationIntArray();
+        rightShiftStringArray();
+
+        neverNextToEachOther();
+
+        discoverArrays();
+        brokenArray();
+        fillTheArray();
+        countArrayElements();
+
         sumOfMultiplesOfThree();
 
         int[] numbers = {1, 2, 3, 4, 5};
@@ -112,6 +122,170 @@ public class ArrayPractice {
         // do something
     }
 
+    /**
+     * Checks whether a predefined array of integers is sorted in ascending order.
+     */
+    public static void brokenArray(){
+        int[] numbers = {1, 2, 3, 4, 5, 10, 6};
+        boolean broken = false;
+
+        for(int i = 1; i < numbers.length; i++){
+            if(numbers[i] < numbers[i-1]){
+                broken = true;
+                break;
+            }
+        }
+
+        if(broken){
+            System.out.println(Arrays.toString(numbers));
+            System.out.println("BROKEN");
+        }else{
+            System.out.println(Arrays.toString(numbers));
+            System.out.println("OK");
+        }
+    }
+
+    /**
+     * Create a new array and fill it with some values from the user's input
+     */
+    public static void fillTheArray(){
+        System.out.println("\nfillTheArray: ");
+        int length = input.nextInt();
+        int[] array = new int[length];
+
+        for(int i = 0; i < length; i++){
+            array[i] = input.nextInt();
+        }
+        System.out.println(Arrays.toString(array));
+        System.out.println();
+    }
+
+    /**
+     * Counts the number of 'a' characters in an array of characters
+     */
+    public static void countArrayElements(){
+        char[] characters = {'a', 'b', 'c', 'a', 'b', 'c', 'a'};
+
+        int counter = 0;
+        for(char ch:  characters){
+            if(ch == 'a'){
+                counter++;
+            }
+        }
+        System.out.println(Arrays.toString(characters));
+        System.out.println("Number of 'a' characters: " + counter);
+        System.out.println();
+    }
+
+    /**
+     * Shifts each element of an array to the right by a given number
+     * The method reads the array elements from user input, splits them into a string array,
+     * and then creates a new array where each element is shifted to the right by the given
+     * number of positions. The shifted array is then displayed.
+     * {1,2,3,4,5} shift by 1 : {5,1,2,3,4}
+     * {1,2,3,4,5} -> {5,1,2,3,4} -> {4,5,1,2,3}
+     */
+    public static void rightShiftStringArray(){
+        String array;
+        System.out.print("\nEnter your array elements: ");
+        array = input.nextLine();
+
+        String[] nums =  array.split(" ");
+        System.out.println(Arrays.toString(nums));
+
+        System.out.print("Enter the number of shifts: ");
+        int nbrShifts = input.nextInt();
+
+        String[] shiftedNums = new String[nums.length];
+        for(int i = 0; i < shiftedNums.length; i++){
+            int index = (nbrShifts + i) % nums.length;
+            shiftedNums[index] = nums[i];
+        }
+        System.out.println(Arrays.toString(shiftedNums));
+        System.out.println();
+    }
+
+    /**
+     * Prompts the user to input an array of integers and a number of rotation steps,
+     * then performs a right rotation on the array by the specified number of steps.
+     */
+    public static void rightRotationIntArray(){
+        System.out.print("\nEnter your array elements: ");
+        int[] arr = Arrays.stream(input.nextLine().split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+
+        System.out.print("Enter the number of shifts: ");
+        int steps = Integer.parseInt(input.nextLine());
+
+        arr = rotate(arr, steps);
+
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+
+    /**
+     * Rotates the given integer array to the right by the specified number of steps.
+     * Each element in the array is moved to a new index determined by:
+     * (currentIndex + steps) % arrayLength
+     * @param arr the integer array to rotate
+     * @param steps the number of positions to shift elements to the right
+     * @return a new array containing the rotated elements
+     */
+    public static int[] rotate(int[] arr, int steps){
+        int[] shiftedNums = new int[arr.length];
+        for(int i = 0; i < shiftedNums.length; i++){
+            int index = (steps + i) % arr.length;
+            shiftedNums[index] = arr[i];
+        }
+        arr = shiftedNums;
+        return arr;
+    }
+
+    /**
+     * Reads an array of integers and two numbers n and m.
+     * Checks that n and m never occur next to each other (in any order) in the array.
+     * The first line contains the size of an array.
+     * The second line contains elements of the array.
+     * The third line contains two integer numbers n and m.
+     * All numbers in the same line are separated by the space character.
+     * The result is a single boolean value: true if n and m never occur next to each other;
+     * otherwise, it is false.
+     */
+    public static void neverNextToEachOther(){
+        boolean isNeverNext = true;
+        System.out.print("Enter the array size: ");
+        int size =  input.nextInt();
+
+        System.out.print("Enter the array elements: ");
+        int[] arr = new int[size];
+        for(int i = 0; i < size; i++){
+            arr[i] = input.nextInt();
+        }
+
+        System.out.print("Enter n and m numbers: ");
+        int[] nmNumbers =  new int[2];
+        for(int i = 0; i < 2; i++){
+            nmNumbers[i] = input.nextInt();
+        }
+
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] == nmNumbers[0] && i < arr.length - 1){
+                if(arr[i + 1] == nmNumbers[1]){
+                    isNeverNext = false;
+                }
+            }else if (arr[i] == nmNumbers[1] && i < arr.length - 1){
+                if(arr[i + 1] == nmNumbers[0]){
+                    isNeverNext = false;
+                }
+            }
+        }
+        System.out.println(isNeverNext);
+        System.out.println();
+    }
+
     public static void discoverArrays(){
         int[] numbers1 = {1,2,3,4,5,6};
 
@@ -133,10 +307,25 @@ public class ArrayPractice {
         Arrays.fill(characters, 0, size/2, 'a');
         Arrays.fill(characters, size/2, size, 'b');
         System.out.println(Arrays.toString(characters));
+        System.out.println();
+
+        int k = 10;
+        int[] squares = new int[k];
+
+        System.out.println(Arrays.toString(squares));
+        System.out.println();
+
+        //iterating over the array
+        for(int i = 0; i < squares.length; i++){
+            squares[i] = i * i;
+        }
+        System.out.println(Arrays.toString(squares));
+        System.out.println();
 
         int[] myArray = {1,2,3,4,5};
         int length = myArray.length; // number of elements of the array
         System.out.println(length);
+        System.out.println();
 
         // Accessing
         myArray[0]++;
@@ -146,5 +335,7 @@ public class ArrayPractice {
         myArray[3] = myArray[1] +  myArray[2];
 
         char[] array = new char[0];
+
+
     }
 }
