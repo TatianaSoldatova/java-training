@@ -8,6 +8,16 @@ public class ArrayPractice {
     static Scanner input = new Scanner(System.in);
 
     static void main() {
+        int[] a = {1,2,3,4,5};
+        int[] b = {1,2,3,4,5};
+        int[] c = {1,2,4,4,9};
+        compareArrays(a,b);
+        compareArrays(a,c);
+        System.out.println();
+
+        double[] d = fillDoublesArray(5);
+        System.out.println(Arrays.toString(d));
+
         rightRotationIntArray();
         rightShiftStringArray();
 
@@ -15,7 +25,7 @@ public class ArrayPractice {
 
         discoverArrays();
         brokenArray();
-        fillTheArray();
+        fillIntegersArray();
         countArrayElements();
 
         sumOfMultiplesOfThree();
@@ -48,6 +58,14 @@ public class ArrayPractice {
         input.close();
     }
 
+    /**
+     * Adds a specified value to an element of an integer array at a given index.
+     * This method iterates through the array and, when the specified index is reached,
+     * adds the given value to the element at that position.
+     * @param array the array whose element will be modified
+     * @param index the index of the element to which the value should be added
+     * @param value the value to add to the element at the specified index
+     */
     public static void addValueByIndex(int[] array, int index, int value) {
         for (int i = 0; i < array.length; i++) {
             if(i == index){
@@ -124,6 +142,10 @@ public class ArrayPractice {
 
     /**
      * Checks whether a predefined array of integers is sorted in ascending order.
+     * This method initializes an integer array and iterates through it to determine
+     * if any element is smaller than the one before it. If such a case is found, the array
+     * is considered "broken." The method then prints the array contents followed by either
+     * "BROKEN" if the order is not ascending, or "OK" if the array is sorted correctly.
      */
     public static void brokenArray(){
         int[] numbers = {1, 2, 3, 4, 5, 10, 6};
@@ -135,21 +157,22 @@ public class ArrayPractice {
                 break;
             }
         }
-
+        System.out.println(Arrays.toString(numbers));
         if(broken){
-            System.out.println(Arrays.toString(numbers));
             System.out.println("BROKEN");
         }else{
-            System.out.println(Arrays.toString(numbers));
             System.out.println("OK");
         }
     }
 
     /**
-     * Create a new array and fill it with some values from the user's input
+     * Reads a sequence of integers from user input, stores them in an array, and prints the array.
+     * This method first prompts the user to enter the desired length of the array, then reads
+     * that many integer values from standard input and stores them in a new integer array.
+     * After the array is filled, its contents are printed to the console.
      */
-    public static void fillTheArray(){
-        System.out.println("\nfillTheArray: ");
+    public static void fillIntegersArray(){
+        System.out.println("\nfill the integers array: ");
         int length = input.nextInt();
         int[] array = new int[length];
 
@@ -158,6 +181,23 @@ public class ArrayPractice {
         }
         System.out.println(Arrays.toString(array));
         System.out.println();
+    }
+
+    /**
+     * Creates and fills an array of doubles with user-provided values.
+     * This method initializes a new double array of the specified size. It then prompts
+     * the user to enter each element individually, reading values from standard input.
+     * Once all elements have been entered, the filled array is returned.
+     * @param size the number of elements to include in the array
+     * @return a double array containing the values entered by the user
+     */
+    public static double[] fillDoublesArray(int size){
+        double[] array = new double[size];
+        for(int i = 0; i < size; i++){
+            System.out.print("Enter the element " + i + ": ");
+            array[i] = input.nextDouble();
+        }
+        return array;
     }
 
     /**
@@ -187,7 +227,7 @@ public class ArrayPractice {
      */
     public static void rightShiftStringArray(){
         String array;
-        System.out.print("\nEnter your array elements: ");
+        System.out.print("\nEnter your array elements one after another separated by spaces: ");
         array = input.nextLine();
 
         String[] nums =  array.split(" ");
@@ -210,8 +250,10 @@ public class ArrayPractice {
      * then performs a right rotation on the array by the specified number of steps.
      */
     public static void rightRotationIntArray(){
-        System.out.print("\nEnter your array elements: ");
-        int[] arr = Arrays.stream(input.nextLine().split(" "))
+        input.nextLine();
+        System.out.print("\nEnter your array elements one after another separated by spaces: ");
+        String line = input.nextLine();
+        int[] arr = Arrays.stream(line.trim().split(" "))
                 .mapToInt(Integer::parseInt)
                 .toArray();
 
@@ -286,6 +328,27 @@ public class ArrayPractice {
         System.out.println();
     }
 
+    /**
+     * Compares two arrays of integers
+     * @param a first array of integers
+     * @param b second array of integers
+     */
+    public static void compareArrays(int[] a, int[] b){
+        if(a == null || b == null || a.length != b.length){
+            System.out.println("Arrays are not equal or null");
+        }else{
+            int i = 0;
+            while(i < a.length && (a[i] == b[i])){
+                i++;
+            }
+            if(i >= a.length){
+                System.out.println("Arrays are identical");
+            }else{
+                System.out.println("Arrays are not equal");
+            }
+        }
+    }
+
     public static void discoverArrays(){
         int[] numbers1 = {1,2,3,4,5,6};
 
@@ -335,7 +398,5 @@ public class ArrayPractice {
         myArray[3] = myArray[1] +  myArray[2];
 
         char[] array = new char[0];
-
-
     }
 }
